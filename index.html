@@ -1,0 +1,926 @@
+<html>
+
+<head>
+    <title>Tic Tac Toe Game</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Custom Stylesheet-->
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/mystyle.css') }}" />
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="http://use.fontawsome.com/releases/v5.0.8/js/all.js"></script>
+
+    <!-- Custom Scripting-->
+    <script src="{{ url_for('static',filename='js/myscript.js') }}"></script>
+
+
+</head>
+
+
+
+
+    <body style="background-image:url({{url_for('static', filename='/abc.jpg')}});background-size: cover;">
+   
+        
+
+    
+<div class="container mt-5 mb-5">
+    <div class="row">
+
+
+
+
+       <!-- Left Card for Project Introduction -->
+       
+       <div class="card col-lg-6 text-  center" style="background: rgba(247, 223, 227, 0.7)">
+
+        <h1 class="m-5">
+            <strong>Tic Tac Toe Game Prediction System</strong>
+          </h1>
+          
+
+          
+          <!-- Instructions -->
+          <ul class="ml-4 mr-4" style="text-align: justify">
+          
+            <li style="font-weight: bolder; font-size: 100%" > Constructive induction on decision trees. In {\it Proceedings of the Eleventh International Joint Conference on Artificial Intelligence} (pp. 645--650).  Detroit, MI: Morgan Kaufmann</li>
+          
+            <li style="font-weight: bolder; font-size: 100%" > Adding domain knowledge to SBL through feature construction.  In {\it Proceedings of the Eighth National Conference on Artificial Intelligence} (pp. 803--808). Boston, MA: AAAI Press</li>
+          
+            <li style="font-weight: bolder; font-size: 100%" > Incremental constructive induction: An instance-based approach.  In {\it Proceedings of the Eighth International Workshop on Machine Learning} (pp. 117--121).  Evanston, ILL: Morgan Kaufmann.</li>
+
+            
+            <li style="font-weight: bolder; font-size: 100%" > This database encodes the complete set of possible board configurationsat the end of tic-tac-toe games, where "x" is assumed to have played first. </li>
+          </ul>
+          
+          <!-- Read Instructions button -->
+          <button class="btn btn-secondary mt-4" style="width : 50% ; background-color: #0d11e4;border-width: 3px;border-color: rgb(255, 238, 0);color: rgb(255, 238, 0)" data-toggle="modal" data-target="#instructionmodal">Read Instructions
+          </button>
+    
+       </div>
+
+
+
+
+
+
+
+
+
+       
+
+       <!-- Right Card for System Inputs -->
+       <div class="col-lg-6 text-center" style="background: rgba(247, 223, 227, 0.7)">
+        <div>
+            <h2 class="m-3" style="color: black"><strong>Predict who will win the game</strong></h2>
+          </div>
+                    
+          <div id="inputs-form">
+            <form action="/output" method="POST">
+          
+
+
+
+
+
+
+                                                      <!-- Just select area and view no variable -->
+
+
+
+
+          <!-- tls Dropdown -->
+          <div class="form-group row">
+             <label class="col-lg-4 col-4 offset-lg-1 col-form-label"
+
+             style="font-weight: bolder; font-size: 90%">Top Left Square</label>
+             <div class="col-lg-6 col-xl-5 col-6">
+                <div class="dropdown">
+                         <select class="form-control btn- secondary" name="tls" id="tls" style=" background-color: rgb(255, 238, 0);border-width: 3px;border-color: #0d11e4;color: #0d11e4;
+          height: 40px;" onchange="checkSelection(this)" required>
+                            <option   selected disabled value="">Select TLS </option>
+                            <option value="0">X (Player 1)</option>
+                            <option value="1">O (Player 2)</option>
+                            <option value="2">B (Blank)</option>
+                         </select>
+                      </div>
+                    </div>
+          </div>
+
+          <!-- tms Dropdown -->
+          <div class="form-group row">
+            <label class="col-lg-4 col-4 offset-lg-1 col-form-label"
+
+            style="font-weight: bolder; font-size: 90%">Top Midddle Sqaure</label>
+            <div class="col-lg-6 col-xl-5 col-6">
+               <div class="dropdown">
+                        <select class="form-control btn- secondary" name="tms" id="tms" style="background-color: rgb(255, 238, 0);border-width: 3px;border-color: #0d11e4;color: #0d11e4;
+         height: 40px;" onchange="checkSelection(this)" required>
+                           <option selected disabled value="">Select TMS</option>
+                           <option value="0">X (Player 1)</option>
+                           <option value="1">O (Player 2)</option>
+                           <option value="2">B (Blank)</option>
+                        </select>
+                     </div>
+                   </div>
+         </div>
+
+
+         <!-- trs Dropdown -->
+         <div class="form-group row">
+            <label class="col-lg-4 col-4 offset-lg-1 col-form-label"
+
+            style="font-weight: bolder; font-size: 90%">Top Right Square</label>
+            <div class="col-lg-6 col-xl-5 col-6">
+               <div class="dropdown">
+                        <select class="form-control btn- secondary" name="trs" id="trs" style="background-color: rgb(255, 238, 0);border-width: 3px;border-color: #0d11e4;color: #0d11e4;
+         height: 40px;" onchange="checkSelection(this)" required>
+                           <option selected disabled value="">Select TRS</option>
+                           <option value="0">X (Player 1)</option>
+                           <option value="1">O (Player 2)</option>
+                           <option value="2">B (Blank)</option>
+                        </select>
+                     </div>
+                   </div>
+         </div>
+
+         <!-- mls Dropdown -->
+         <div class="form-group row">
+            <label class="col-lg-4 col-4 offset-lg-1 col-form-label"
+
+            style="font-weight: bolder; font-size: 90%">Middle Left Square</label>
+            <div class="col-lg-6 col-xl-5 col-6">
+               <div class="dropdown">
+                        <select class="form-control btn- secondary" name="mls" id="mls" style="background-color: rgb(255, 238, 0);border-width: 3px;border-color: #0d11e4;color: #0d11e4;
+         height: 40px;" onchange="checkSelection(this)" required>
+                           <option selected disabled value="">Select MLS</option>
+                           <option value="0">X (Player 1)</option>
+                           <option value="1">O (Player 2)</option>
+                           <option value="2">B (Blank)</option>
+                        </select>
+                     </div>
+                   </div>
+         </div>
+
+         <!-- mms Dropdown -->
+         <div class="form-group row">
+            <label class="col-lg-4 col-4 offset-lg-1 col-form-label"
+
+            style="font-weight: bolder; font-size: 90%">Middle Middle Square</label>
+            <div class="col-lg-6 col-xl-5 col-6">
+               <div class="dropdown">
+                        <select class="form-control btn- secondary" name="mms" id="mms" style="background-color: rgb(255, 238, 0);border-width: 3px;border-color: #0d11e4;color: #0d11e4;
+         height: 40px;" onchange="checkSelection(this)" required>
+                           <option selected disabled value=>Select MMS </option>
+                           <option value="0">X (Player 1)</option>
+                           <option value="1">O (Player 2)</option>
+                           <option value="2">B (Blank)</option>
+                        </select>
+                     </div>
+                   </div>
+         </div>
+
+         <!-- mrs Dropdown -->
+         <div class="form-group row">
+            <label class="col-lg-4 col-4 offset-lg-1 col-form-label"
+
+            style="font-weight: bolder; font-size: 90%">Middle Right Square</label>
+            <div class="col-lg-6 col-xl-5 col-6">
+               <div class="dropdown">
+                        <select class="form-control btn- secondary" name="mrs" id="mrs" style="background-color: rgb(255, 238, 0);border-width: 3px;border-color: #0d11e4;color: #0d11e4;
+         height: 40px;" onchange="checkSelection(this)" required>
+                           <option selected disabled value="">Select MRS</option>
+                           <option value="0">X (Player 1)</option>
+                           <option value="1">O (Player 2)</option>
+                           <option value="2">B (Blank)</option>
+                        </select>
+                     </div>
+                   </div>
+         </div>
+         
+         
+         <!-- bls Dropdown -->
+         <div class="form-group row">
+            <label class="col-lg-4 col-4 offset-lg-1 col-form-label"
+
+            style="font-weight: bolder; font-size: 90%">Bottom Left Square</label>
+            <div class="col-lg-6 col-xl-5 col-6">
+               <div class="dropdown">
+                        <select class="form-control btn- secondary" name="bls" id="bls" style="background-color: rgb(255, 238, 0);border-width: 3px;border-color: #0d11e4;color: #0d11e4;
+         height: 40px;" onchange="checkSelection(this)" required>
+                           <option selected disabled value="">Select BLS</option>
+                           <option value="0">X (Player 1)</option>
+                           <option value="1">O (Player 2)</option>
+                           <option value="2">B (Blank)</option>
+                        </select>
+                     </div>
+                   </div>
+         </div>
+
+         <!-- bms Dropdown -->
+         <div class="form-group row">
+            <label class="col-lg-4 col-4 offset-lg-1 col-form-label"
+
+            style="font-weight: bolder; font-size: 90%">Bottom Middle Square</label>
+            <div class="col-lg-6 col-xl-5 col-6">
+               <div class="dropdown">
+                        <select class="form-control btn- secondary" name="bms" id="bms" style="background-color: rgb(255, 238, 0);border-width: 3px;border-color: #0d11e4;color: #0d11e4;
+         height: 40px;" onchange="checkSelection(this)" required>
+                           <option selected disabled value="">Select BMS</option>
+                           <option value="0">X (Player 1)</option>
+                           <option value="1">O (Player 2)</option>
+                           <option value="2">B (Blank)</option>
+                        </select>
+                     </div>
+                   </div>
+         </div> 
+
+         <!-- brs Dropdown -->
+         <div class="form-group row">
+            <label class="col-lg-4 col-4 offset-lg-1 col-form-label"
+
+            style="font-weight: bolder; font-size: 90%">Bottom Right Square</label>
+            <div class="col-lg-6 col-xl-5 col-6">
+               <div class="dropdown">
+                        <select class="form-control btn- secondary" name="brs" id="brs" style="background-color: rgb(255, 238, 0);border-width: 3px;border-color: #0d11e4;color: #0d11e4;
+         height: 40px;" onchange="checkSelection(this)" required>
+                           <option selected disabled value="">Select BRS</option>
+                           <option value="0">X (Player 1)</option>
+                           <option value="1">O (Player 2)</option>
+                           <option value="2">B (Blank)</option>
+                        </select>
+                     </div>
+                   </div>
+         </div> 
+
+
+
+
+
+          <!-- Predict Button -->
+          <div class="form-group row mt-5">
+             <div class="col-lg-8 offset-lg-2 col-9 offset-1 ">
+                <button type="submit" class="btn btn-success" id="calculateButton"  style="width : 100% ; background-color: #0d11e4;border-width: 3px;border-color: rgb(255, 238, 0);color: rgb(255, 238, 0)" >Predict
+                
+                </button>
+                  </div>
+            </div>
+             </form>
+
+          </div>
+
+                                                       <!-- End Part -->
+
+
+
+
+
+
+
+
+
+
+
+
+                                               <!-- Prdict Dailog box -->
+
+         
+
+
+
+
+
+
+
+
+            <div class="modal fade" id="resultmodal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                  aria-hidden="true">
+               <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                        <div class="modal-header">
+                           <h4 class="modal-title" style="margin-left: 26%; margin-right: 17%">
+                              <strong>Prediction of Model</strong>
+                          </h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                          
+                        </div>
+                        <div class="modal-body text-center">
+                           <button class="btn btn-success" type="button" data-toggle="collapse" style="background-color:rgb(255, 238, 0); color:#0d11e4 ; border-width: 3px;border-color:#0d11e4"
+                                    data-target=".multi-collapse" aria-expanded="false"
+                                    aria-controls="multiCollapseExample1 multiCollapseExample2" id="inputhandler">
+                                    Click to view inputs
+                           </button>
+
+
+
+
+
+
+                           <!-- Display of Forwarded Inputs In Result Modal -->
+                           <div class="row mt-3">
+
+                              <div class="col-4">
+                                 <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                    <div class="card">
+                                          <div class="card-header" style="background-color:#0d11e4; color: white; font-size: 85%">
+                                             <strong>Top Left Square</strong>
+                                          </div>
+                                          <div class="card-body">
+                                             
+                                             {% if results["tls"]=="0" %}
+                                                X
+                                             {% elif results["tls"]=="1" %}
+                                                O
+                                             {% elif results["tls"]=="2" %}
+                                                Blank
+                                             {% endif %}
+
+                                          </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+
+                              <div class="col-4">
+                                 <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                    <div class="card">
+                                          <div class="card-header" style="background-color: #0d11e4; color: white; font-size: 85%">
+                                             <strong>Top Middle Square</strong>
+                                          </div>
+                                          <div class="card-body">
+
+                                             {% if results["tms"]=="0" %}
+                                                X
+                                             {% elif results["tms"]=="1" %}
+                                                O
+                                             {% elif results["tms"]=="2" %}
+                                                Blank
+                                             {% endif %}
+
+                                          </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+
+                              <div class="col-4">
+                                 <div class="collapse multi-collapse" id="multiCollapseExample3">
+                                    <div class="card">
+                                          <div class="card-header" style="background-color: #0d11e4; color: white; font-size: 85%">
+                                             <strong>Top Right Square</strong>
+                                          </div>
+                                          <div class="card-body">
+
+                                             {% if results["trs"]=="0" %}
+                                                X
+                                             {% elif results["trs"]=="1" %}
+                                                O
+                                             {% elif results["trs"]=="2" %}
+                                                Blank
+                                             {% endif %}
+
+                                          </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+
+                              <div class="col-4 mt-2">
+                                 <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                    <div class="card">
+                                          <div class="card-header" style="background-color: #0d11e4; color: white; font-size: 85%">
+                                             <strong>Middle Left Square</strong>
+                                          </div>
+                                          <div class="card-body">
+
+                                             {% if results["mls"]=="0" %}
+                                                X
+                                             {% elif results["mls"]=="1" %}
+                                                O
+                                             {% elif results["mls"]=="2" %}
+                                                Blank
+                                             {% endif %}
+
+                                          </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+
+                              <div class="col-4 mt-2">
+                                 <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                    <div class="card">
+                                          <div class="card-header" style="background-color: #0d11e4; color: white ; font-size: 85% " >
+                                             <strong>Middle Middle Square</strong>
+                                          </div>
+                                          <div class="card-body">
+
+                                             {% if results["mms"]=="0" %}
+                                                X
+                                             {% elif results["mms"]=="1" %}
+                                                O
+                                             {% elif results["mms"]=="2" %}
+                                                Blank
+                                             {% endif %}
+
+                                          </div>
+                                    </div>
+                                 </div>
+                              </div> 
+
+
+                              <div class="col-4 mt-2">
+                                 <div class="collapse multi-collapse" id="multiCollapseExample3">
+                                    <div class="card">
+                                          <div class="card-header" style="background-color: #0d11e4; color: white; font-size: 85%">
+                                             <strong>Middle Right Square</strong>
+                                          </div>
+                                          <div class="card-body">
+
+                                             {% if results["mrs"]=="0" %}
+                                                X
+                                             {% elif results["mrs"]=="1" %}
+                                                O
+                                             {% elif results["mrs"]=="2" %}
+                                                Blank
+                                             {% endif %}
+
+                                          </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+                              
+                              <div class="col-4 mt-2">
+                                 <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                    <div class="card">
+                                          <div class="card-header" style="background-color: #0d11e4; color: white; font-size: 85%">
+                                             <strong>Bottom Left Square</strong>
+                                          </div>
+                                          <div class="card-body">
+
+                                             {% if results["bls"]=="0" %}
+                                                X
+                                             {% elif results["bls"]=="1" %}
+                                                O
+                                             {% elif results["bls"]=="2" %}
+                                                Blank
+                                             {% endif %}
+
+                                          </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+
+                              <div class="col-4 mt-2">
+                                 <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                    <div class="card">
+                                          <div class="card-header" style="background-color: #0d11e4; color: white; font-size: 85%">
+                                             <strong>Bottom Middle Square</strong>
+                                          </div>
+                                          <div class="card-body">
+
+                                             {% if results["bms"]=="0" %}
+                                                X
+                                             {% elif results["bms"]=="1" %}
+                                                O
+                                             {% elif results["bms"]=="2" %}
+                                                Blank
+                                             {% endif %}
+
+                                          </div>
+                                    </div>
+                                 </div> 
+                              </div>
+
+                  
+                              <div class="col-4 mt-2">
+                                 <div class="collapse multi-collapse" id="multiCollapseExample3">
+                                    <div class="card">
+                                          <div class="card-header" style="background-color: #0d11e4; color: white; font-size: 85%">
+                                             <strong>Bottom Right Square</strong>
+                                          </div>
+                                          <div class="card-body">
+
+                                             {% if results["brs"]=="0" %}
+                                                X
+                                             {% elif results["brs"]=="1" %}
+                                                O
+                                             {% elif results["brs"]=="2" %}
+                                                Blank
+                                             {% endif %}
+
+                                          </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+
+
+
+                           <!-- Arrow pointing downwards -->
+                           <div class="row mt-1 collapse multi-collapse">
+                              <i class="fa fa-arrow-down" style="padding-left: 46%; font-size: 40px"></i>
+                           </div>
+
+                           <!-- Display of predicted result -->
+                           <div class="result-box mt-1" style=" color:#0d11e4" >
+                              <p id="result">  <h1> <strong> {{predicted_result}} </strong>    </h1> </p>
+
+                           
+                           </div>
+                        </div>
+                  </div>
+               </div>
+            </div>
+           
+      
+
+             
+
+
+
+
+
+
+
+
+          <div class="modal fade" id="instructionmodal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+         
+                  </div>
+                  
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+
+                    <h4 class="modal-title" style="margin-left: 1% ; color: rgb(255, 238, 0)">
+                    <strong>Input Attributes Details</strong>
+                    </h4>
+                
+                    
+
+                
+
+
+                                    <!-- Collapsable System Input Attributes in Instruction Modal -->
+                        <div id="accordion">
+
+                                        <div class="card mt-2" style="background: #0d11e4 ; color : black ">
+                                            <div class="card-header" id="tlsheading" style="display: inline-flex;height: 40px;align-content: center;cursor: pointer;" data-toggle="collapse" data-target="#tlscollapse" aria-expanded="false"
+                                            aria-controls="collapseOne">
+                                            <i class="fa fa-plus-circle">
+                                            <b class="ml-3" style="font-family: sans-serif"> Top Left Sqaure </b>
+                                            </i>
+                                            </div>
+                                            
+                                            
+                                            <div id="tlscollapse" class="collapse" aria-labelledby="tlsheading"
+                                            style="background: white" data-parent="#accordion">
+                                            <div class="card-body">
+                                              Possible Values of TLS are :
+                                                 <ul>
+                                                  <li>X (Player 1)</li>
+                                                  <li>O (Player 2)</li>
+                                                  <li>B (Blank)</li>
+                                                 </ul>
+                                             </div>
+                                         </div>
+                                    </div>
+
+
+
+
+                                     <div class="card mt-2" style="background: #0d11e4 ; color : black ">
+                                        <div class="card-header" id="tmsheading" style="display: inline-flex;height: 40px;align-content: center;cursor: pointer;" data-toggle="collapse" data-target="#tmscollapse" aria-expanded="false"
+                                            aria-controls="collapseOne">
+                                            <i class="fa fa-plus-circle">
+                                            <b class="ml-3" style="font-family: sans-serif"> Top Middle Sqaure </b>
+                                            </i>
+                                            </div>
+                                            
+                                            
+                                            <div id="tmscollapse" class="collapse" aria-labelledby="tmsheading"
+                                            style="background: white" data-parent="#accordion">
+                                            <div class="card-body">
+                                              Possible Values of TMS are :
+                                                 <ul>
+                                                  <li>X (Player 1)</li>
+                                                  <li>O (Player 2)</li>
+                                                  <li>B (Blank)</li>
+                                                 </ul>
+                                             </div>
+                                        </div>
+                                     </div>
+
+
+
+
+                                     <div class="card mt-2" style="background: #0d11e4 ; color : black ">
+                                        <div class="card-header" id="trsheading" style="display: inline-flex;height: 40px;align-content: center;cursor: pointer;" data-toggle="collapse" data-target="#trscollapse" aria-expanded="false"
+                                            aria-controls="collapseOne">
+                                            <i class="fa fa-plus-circle">
+                                            <b class="ml-3" style="font-family: sans-serif"> Top Right Sqaure </b>
+                                            </i>
+                                            </div>
+                                            
+                                            
+                                            <div id="trscollapse" class="collapse" aria-labelledby="trsheading"
+                                            style="background: white" data-parent="#accordion">
+                                            <div class="card-body">
+                                              Possible Values of TRS are :
+                                                 <ul>
+                                                  <li>X (Player 1)</li>
+                                                  <li>O (Player 2)</li>
+                                                  <li>B (Blank)</li>
+                                                 </ul>
+                                             </div>
+                                        </div>
+                                     </div>
+
+
+
+
+
+
+
+
+                                     <div class="card mt-2" style="background: #0d11e4 ; color : black ">
+                                        <div class="card-header" id="mlsheading" style="display: inline-flex;height: 40px;align-content: center;cursor: pointer;" data-toggle="collapse" data-target="#mlscollapse" aria-expanded="false"
+                                        aria-controls="collapseOne">
+                                        <i class="fa fa-plus-circle">
+                                        <b class="ml-3" style="font-family: sans-serif"> Middle Left Sqaure </b>
+                                        </i>
+                                        </div>
+                                        
+                                        
+                                        <div id="mlscollapse" class="collapse" aria-labelledby="mlsheading"
+                                        style="background: white" data-parent="#accordion">
+                                        <div class="card-body">
+                                          Possible Values of MLS are :
+                                             <ul>
+                                              <li>X (Player 1)</li>
+                                              <li>O (Player 2)</li>
+                                              <li>B (Blank)</li>
+                                             </ul>
+                                         </div>
+                                     </div>
+                                </div>
+
+
+
+
+                                 <div class="card mt-2" style="background: #0d11e4 ; color : black ">
+                                    <div class="card-header" id="mmsheading" style="display: inline-flex;height: 40px;align-content: center;cursor: pointer;" data-toggle="collapse" data-target="#mmscollapse" aria-expanded="false"
+                                        aria-controls="collapseOne">
+                                        <i class="fa fa-plus-circle">
+                                        <b class="ml-3" style="font-family: sans-serif"> Middle Middle Sqaure </b>
+                                        </i>
+                                        </div>
+                                        
+                                        
+                                        <div id="mmscollapse" class="collapse" aria-labelledby="mmsheading"
+                                        style="background: white" data-parent="#accordion">
+                                        <div class="card-body">
+                                          Possible Values of MMS are :
+                                             <ul>
+                                              <li>X (Player 1)</li>
+                                              <li>O (Player 2)</li>
+                                              <li>B (Blank)</li>
+                                             </ul>
+                                         </div>
+                                    </div>
+                                 </div>
+
+
+
+
+                                 <div class="card mt-2" style="background: #0d11e4 ; color : black ">
+                                    <div class="card-header" id="mrsheading" style="display: inline-flex;height: 40px;align-content: center;cursor: pointer;" data-toggle="collapse" data-target="#mrscollapse" aria-expanded="false"
+                                        aria-controls="collapseOne">
+                                        <i class="fa fa-plus-circle">
+                                        <b class="ml-3" style="font-family: sans-serif"> Middle Right Sqaure </b>
+                                        </i>
+                                        </div>
+                                        
+                                        
+                                        <div id="mrscollapse" class="collapse" aria-labelledby="mrsheading"
+                                        style="background: white" data-parent="#accordion">
+                                        <div class="card-body">
+                                          Possible Values of MRS are :
+                                             <ul>
+                                              <li>X (Player 1)</li>
+                                              <li>O (Player 2)</li>
+                                              <li>B (Blank)</li>
+                                             </ul>
+                                         </div>
+                                    </div>
+                                 </div>
+
+
+
+
+
+
+
+                                 <div class="card mt-2" style="background: #0d11e4 ; color : black ">
+                                    <div class="card-header" id="blsheading" style="display: inline-flex;height: 40px;align-content: center;cursor: pointer;" data-toggle="collapse" data-target="#blscollapse" aria-expanded="false"
+                                    aria-controls="collapseOne">
+                                    <i class="fa fa-plus-circle">
+                                    <b class="ml-3" style="font-family: sans-serif"> Bottom Left Sqaure </b>
+                                    </i>
+                                    </div>
+                                    
+                                    
+                                    <div id="blscollapse" class="collapse" aria-labelledby="blsheading"
+                                    style="background: white" data-parent="#accordion">
+                                    <div class="card-body">
+                                      Possible Values of BLS are :
+                                         <ul>
+                                          <li>X (Player 1)</li>
+                                          <li>O (Player 2)</li>
+                                          <li>B (Blank)</li>
+                                         </ul>
+                                     </div>
+                                 </div>
+                            </div>
+
+
+
+
+                             <div class="card mt-2" style="background: #0d11e4 ; color : black ">
+                                <div class="card-header" id="bmsheading" style="display: inline-flex;height: 40px;align-content: center;cursor: pointer;" data-toggle="collapse" data-target="#bmscollapse" aria-expanded="false"
+                                    aria-controls="collapseOne">
+                                    <i class="fa fa-plus-circle">
+                                    <b class="ml-3" style="font-family: sans-serif"> Bottom Middle Sqaure </b>
+                                    </i>
+                                    </div>
+                                    
+                                    
+                                    <div id="bmscollapse" class="collapse" aria-labelledby="bmsheading"
+                                    style="background: white" data-parent="#accordion">
+                                    <div class="card-body">
+                                      Possible Values of BMS are :
+                                         <ul>
+                                          <li>X (Player 1)</li>
+                                          <li>O (Player 2)</li>
+                                          <li>B (Blank)</li>
+                                         </ul>
+                                     </div>
+                                </div>
+                             </div>
+
+
+
+
+                             <div class="card mt-2" style="background: #0d11e4 ; color : black ">
+                                <div class="card-header" id="brsheading" style="display: inline-flex;height: 40px;align-content: center;cursor: pointer;" data-toggle="collapse" data-target="#brscollapse" aria-expanded="false"
+                                    aria-controls="collapseOne">
+                                    <i class="fa fa-plus-circle">
+                                    <b class="ml-3" style="font-family: sans-serif"> Bottom Right Sqaure </b>
+                                    </i>
+                                    </div>
+                                    
+                                    
+                                    <div id="brscollapse" class="collapse" aria-labelledby="brsheading"
+                                    style="background: white" data-parent="#accordion">
+                                    <div class="card-body">
+                                      Possible Values of BRS are :
+                                         <ul>
+                                          <li>X (Player 1)</li>
+                                          <li>O (Player 2)</li>
+                                          <li>B (Blank)</li>
+                                         </ul>
+                                    </div>
+                                    </div>
+                               </div>
+                     </div>
+
+
+
+
+
+               
+                     <h4 class="modal-title" style="margin-left: 1% ; color: rgb(255, 238, 0)">
+                        <strong>Steps to Follow</strong>
+                        </h4>
+                     
+                    
+                    <!-- Steps of Prediction -->
+                    <div class="mt-3 ml-3">
+                        <span style="margin-left: -37% ; font-weight: bolder">Step 1 : </span> Select
+                        values of
+                        <span style="font-weight: bolder; color: #0d11e4">of above varibale
+                        </span><br />
+                        <span style="margin-left: -55% ; font-weight: bolder">Step 2 : </span> Click on
+                        <span style="font-weight: bolder; color: #0d11e4">Predict</span>
+                        Button<br />
+                        <span style="margin-left: -5% ; font-weight: bolder">Step 3 : </span> The System will predict the winner
+                        <span style="font-weight: bolder; color: #0d11e4">Player 1</span>
+                        or <span style="font-weight: bolder; color: #0d11e4">Player 2 </span> 
+                    </div>
+                    
+                 
+                 
+                  </div>
+
+             </div>
+
+         </div>
+
+      </div>
+
+         
+         
+         <script>
+
+            
+         $("#inputhandler").click(function () 
+         {
+            
+            if ($("#inputhandler").attr("aria-expanded") == "false") 
+            {
+               document.getElementById("inputhandler").innerText =
+                     "Click to minimize inputs";
+               $("#inputhandler").removeClass("btn-success");
+               $("#inputhandler").addClass("btn-secondary");
+            }
+            
+            if ($("#inputhandler").attr("aria-expanded") == "true") 
+            {
+               document.getElementById("inputhandler").innerText =
+                     "Click to view inputs";
+               $("#inputhandler").removeClass("btn-secondary");
+               $("#inputhandler").addClass("btn-success");
+            }
+
+         });
+
+
+
+         $(document).ready(function () 
+         {
+
+            // Handle Predicted Result
+            $("#result").ready(function () 
+            {
+              
+               
+               // Handling the predited result to be green in case of ** Positive player 1 win **
+               if ($("#result").text() == "positive") 
+               {
+                     document.getElementById("result").innerHTML =
+                        '<h1 id="result"><strong> Player 1 </strong></h1> ';
+                     $("#result").css("color", "black");
+                     document.getElementById("result").style.display = "block";
+               }
+
+               // Handling the predited result to be red in case of ** Negative **
+               if ($("#result").text() == "negative") 
+               {
+                     document.getElementById("result").innerHTML =
+                        '<h1 id="result"><strong> Player 2 </strong></h1>';
+                     $("#result").css("color", "#0d11e4");
+                     document.getElementById("result").style.display = "block";
+               }
+
+
+            });
+
+         });
+
+
+         window.onload = function () 
+         {
+            if (document.getElementById("result").innerText) 
+            {
+               $("#resultmodal").modal("show");
+            }
+         }
+
+
+
+
+         </script>
+
+    </body>
+
+
+
+
+</html>
+
